@@ -52,7 +52,7 @@
 
 #### [![Typing SVG](https://readme-typing-svg.demolab.com?font=New+Amsterdam&size=25&duration=2000&pause=4000&color=FFFFFF&background=000000&center=true&vCenter=true&width=435&lines=Contribui%C3%A7%C3%B5es)](https://git.io/typing-svg)
 
-- Curto em me conectar com pessoas, então, as contribuições são bem-vindas! Se você tiver ideias para melhorar este projeto ou encontrar algum problema, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+- Curto em me conectar com pessoas, então, as contribuições são bem-vindas! Se você tiver ideias para melhorar este projeto ou encontrar algum problema, sinta-se à vontade para abrir uma [issue](https://github.com/lucasfragadev/qr-code-app/issues) ou enviar um [pull request](https://github.com/lucasfragadev/qr-code-app/pulls).
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=New+Amsterdam&size=25&duration=2000&pause=4000&color=FFFFFF&background=000000&center=true&vCenter=true&width=435&lines=Suporte)](https://git.io/typing-svg)
 
