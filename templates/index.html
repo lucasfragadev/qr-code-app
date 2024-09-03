@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de QR Code</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Gerador de QR Code</h1>
+        <form action="/" method="POST" enctype="multipart/form-data" class="mt-4">
+            <div class="mb-3">
+                <label for="pix_code" class="form-label">Código PIX ou URL</label>
+                <input type="text" class="form-control" id="pix_code" name="pix_code" required>
+            </div>
+            <div class="mb-3">
+                <label for="logo" class="form-label">Selecione o Logo (opcional)</label>
+                <input class="form-control" type="file" id="logo" name="logo" accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-primary">Gerar QR Code</button>
+        </form>
+        {% if img_data %}
+        <div class="mt-4 text-center">
+            <h3>QR Code Gerado:</h3>
+            <img src="data:image/png;base64,{{ img_data }}" alt="QR Code" class="img-fluid mt-2">
+            <div class="mt-3">
+                <a href="/download?img_data={{ img_data }}" class="btn btn-success">Baixar QR Code</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
