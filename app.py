@@ -25,14 +25,14 @@ def index():
         qr.add_data(pix_code)
         qr.make(fit=True)
 
-        qr_img = qr.make_image(fill='black', back_color='white').convert('RGB')
+        qr_img = qr.make_image(fill='black', back_color='white').convert('RGBA')
 
         if logo and logo.filename != '':
-            logo = Image.open(logo)
+            logo = Image.open(logo).convert("RGBA")  # Converte o logo para RGBA
             logo_size = (qr_img.size[0] // 4, qr_img.size[1] // 4)
             logo = logo.resize(logo_size, Image.LANCZOS)
 
-            # Create a mask with a square cut-out in the middle
+            # Criar uma máscara para garantir que o logo seja centralizado e tenha transparência preservada
             mask = Image.new('L', qr_img.size, 255)
             draw = ImageDraw.Draw(mask)
             square_size = logo_size[0]
@@ -41,10 +41,9 @@ def index():
                             (square_center[0] + square_size // 2, square_center[1] + square_size // 2)],
                            fill=0)
 
-            # Apply mask to QR code
-            qr_img = Image.composite(qr_img, Image.new('RGB', qr_img.size, 'white'), mask)
+            qr_img = Image.composite(qr_img, Image.new('RGBA', qr_img.size, 'white'), mask)
 
-            # Paste the logo into the QR code
+            # Posicionar o logo no centro do QR Code
             logo_position = (square_center[0] - logo_size[0] // 2, square_center[1] - logo_size[1] // 2)
             qr_img.paste(logo, logo_position, logo)
 
