@@ -18,6 +18,14 @@
                 <label for="logo" class="form-label">Selecione o Logo (opcional)</label>
                 <input class="form-control" type="file" id="logo" name="logo" accept="image/*">
             </div>
+            <div class="mb-3">
+                <label for="fill_color" class="form-label">Cor do QR Code</label>
+                <input type="color" class="form-control form-control-color" id="fill_color" name="fill_color" value="#000000">
+            </div>
+            <div class="mb-3">
+                <label for="back_color" class="form-label">Cor de fundo do QR Code</label>
+                <input type="color" class="form-control form-control-color" id="back_color" name="back_color" value="#ffffff">
+            </div>
             <button type="submit" class="btn btn-primary">Gerar QR Code</button>
         </form>
         {% if img_data %}

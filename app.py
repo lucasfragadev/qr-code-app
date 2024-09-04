@@ -15,6 +15,8 @@ def index():
     if request.method == 'POST':
         pix_code = request.form['pix_code']
         logo = request.files['logo']
+        fill_color = request.form.get('fill_color', 'black')
+        back_color = request.form.get('back_color', 'white')
 
         qr = qrcode.QRCode(
             version=1,
@@ -25,7 +27,7 @@ def index():
         qr.add_data(pix_code)
         qr.make(fit=True)
 
-        qr_img = qr.make_image(fill='black', back_color='white').convert('RGBA')
+        qr_img = qr.make_image(fill_color=fill_color, back_color=back_color).convert('RGBA')
 
         if logo and logo.filename != '':
             logo = Image.open(logo).convert("RGBA")  # Converte o logo para RGBA
