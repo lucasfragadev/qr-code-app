@@ -18,7 +18,7 @@ def index():
 
         qr = qrcode.QRCode(
             version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_M,
+            error_correction=qrcode.constants.ERROR_CORRECT_H,
             box_size=10,
             border=4,
         )
@@ -32,27 +32,23 @@ def index():
             logo_size = (qr_img.size[0] // 4, qr_img.size[1] // 4)
             logo = logo.resize(logo_size, Image.LANCZOS)
 
-
-
-            # Create an image with a transparent square where the logo will be placed
-            overlay = Image.new('RGBA', qr_img.size, (255, 255, 255, 0))
-            draw = ImageDraw.Draw(overlay)
+            # Create a mask with a square cut-out in the middle
+            mask = Image.new('L', qr_img.size, 255)
+            draw = ImageDraw.Draw(mask)
             square_size = logo_size[0]
-            square_center = (overlay.size[0] // 2, overlay.size[1] // 2)
+            square_center = (mask.size[0] // 2, mask.size[1] // 2)
             draw.rectangle([(square_center[0] - square_size // 2, square_center[1] - square_size // 2),
                             (square_center[0] + square_size // 2, square_center[1] + square_size // 2)],
-                           outline=None, fill=(255, 255, 255, 0))
+                           fill=0)
 
-            # Paste the logo into the overlay
-            overlay.paste(logo, (square_center[0] - logo_size[0] // 2, square_center[1] - logo_size[1] // 2), logo)
+            # Apply mask to QR code
+            qr_img = Image.composite(qr_img, Image.new('RGB', qr_img.size, 'white'), mask)
 
-            # Composite the QR code and the overlay
-            final_img = Image.alpha_composite(qr_img.convert('RGBA'), overlay)
-            final_img = final_img.convert('RGB')
-        else:
-            final_img = qr_img
+            # Paste the logo into the QR code
+            logo_position = (square_center[0] - logo_size[0] // 2, square_center[1] - logo_size[1] // 2)
+            qr_img.paste(logo, logo_position, logo)
 
-        rounded_img = add_rounded_corners(final_img, radius=20)
+        rounded_img = add_rounded_corners(qr_img, radius=20)
 
         img_io = BytesIO()
         rounded_img.save(img_io, 'PNG')
@@ -81,18 +77,6 @@ def download(filename):
         return send_file(file_path, as_attachment=True, download_name='pix_qr_code.png', mimetype='image/png')
     else:
         return "File not found", 404
-
-def add_square_hole(image, logo_size):
-    mask = Image.new('L', image.size, 0)
-    draw = ImageDraw.Draw(mask)
-    square_size = logo_size[0] // 2
-    square_center = (image.size[0] // 2, image.size[1] // 2)
-    draw.rectangle([(square_center[0] - square_size, square_center[1] - square_size),
-                  (square_center[0] + square_size, square_center[1] + square_size)],
-                 fill=255)
-    mask = ImageOps.fit(mask, image.size, centering=(0.5, 0.5))
-    image.paste((255, 255, 255), mask=mask)
-    return image
 
 def add_rounded_corners(image, radius):
     mask = Image.new("L", image.size, 0)
