@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +25,7 @@
             <h3>QR Code Gerado:</h3>
             <img src="data:image/png;base64,{{ img_data }}" alt="QR Code" class="img-fluid mt-2">
             <div class="mt-3">
-                <a href="/download?img_data={{ img_data }}" class="btn btn-success">Baixar QR Code</a>
+                <a href="/download/{{ qr_code_filename }}" class="btn btn-success">Baixar QR Code</a>
             </div>
         </div>
         {% endif %}
