@@ -73,7 +73,7 @@ def index():
 def download(filename):
     file_path = os.path.join('static', filename)
     if os.path.exists(file_path):
-        return send_file(file_path, as_attachment=True, download_name='pix_qr_code.png', mimetype='image/png')
+        return send_file(file_path, as_attachment=True, download_name='qr_code.png', mimetype='image/png')
     else:
         return "File not found", 404
 
